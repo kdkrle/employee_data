@@ -164,6 +164,10 @@ Pressing the 'Izveštaji' (Reports) button on the main screen opens a new
 window. In that window, at the top, we have the logo and the name of the 
 company, next to which is the title of the window.
 
+![5 - Reports](https://github.com/kdkrle/employee_data/assets/59825527/8384f9ce-a815-4df8-b4ef-8d4e2c70c5d8)
+
+_Picture 6: Reports_
+
 Below is a frame for choosing one of several options, which are also a short 
 description of the results that we will get by opening a new form.
 
@@ -173,9 +177,21 @@ legend and information to interpret this display. The display itself is
 below that in a separate frame 'Hijerarhija pozicija u firmi' (Hierarchy of 
 positions in the company).
 
+![5 1a - Company Hierarchy (upper part)](https://github.com/kdkrle/employee_data/assets/59825527/e2b1ed2a-a16f-4b46-8fe4-62b3a0f9ee27)
+
+_Picture 7: Company Hierarchy (upper part)_
+
+![5 1b - Company Hierarchy (bottom part)](https://github.com/kdkrle/employee_data/assets/59825527/52ecdab0-3034-4489-a2f3-2b508d7e8abc)
+
+_Picture 8: Company Hierarchy (bottom part)_
+
 The option 'Spisak pozicija s odgovornostima' (List of positions with 
 responsibilities) gives us an insight into the responsibilities that an 
 employee has in the corresponding position.
+
+![5 2 - Positions and Responsibilities](https://github.com/kdkrle/employee_data/assets/59825527/e380d6aa-4d38-4946-ba4a-71d196ae29c8)
+
+_Picture 9: Positions and Responsibilities_
 
 The option 'Informacije o radnim mestima' (Workplace information) opens a 
 new window with information in three columns. The first is a short 
@@ -183,12 +199,65 @@ designation for the workplace, the second is the full name of the workplace,
 and the third is the location, i.e. the address where the workplace is 
 located.
 
+![5 3 - Workplace Information](https://github.com/kdkrle/employee_data/assets/59825527/65d265fc-dd53-4a24-9bde-7bab620aa8dc)
+
+_Picture 10: Workplace Information_
+
 The last option 'Delokrug sektora' (Sector Scope) takes us to a form that 
 shows which sectors exist in the company and which job positions belong to 
 which sectors.
+
+![5 4 - Sectors Scope](https://github.com/kdkrle/employee_data/assets/59825527/ebb777b1-42e8-4f97-9509-f3f293dad4af)
+
+_Picture 11: Sectors Scope_
 
 ## 5.6 Graphics
 
 Pressing the last button on the main form opens a window for selecting one 
 of the graphics or charts. There is a choice of ten different types of 
 graphical representation of the relationship between the data we have.
+
+![6 - Graphics](https://github.com/kdkrle/employee_data/assets/59825527/a9d833da-e5f5-4cce-8c2f-e020708804d6)
+
+_Picture 12: Graphics_
+
+Examples:
+![6 1 - Number of Positions per Sector](https://github.com/kdkrle/employee_data/assets/59825527/ad77bb7e-d968-417f-ac52-3ab1dae35ec6)
+
+_Picture 13: Number of Positions per Sector_
+
+![6 2 - Number of Employees per Employment Year](https://github.com/kdkrle/employee_data/assets/59825527/8da39aa2-ad45-46d3-b376-45033c911628)
+
+_Picture 14: Number of Employees per Employment Year_
+
+![6 3 - Number of Employees per Position](https://github.com/kdkrle/employee_data/assets/59825527/900f672b-b7a3-4af6-80c7-903ef1cd0d2e)
+
+_Picture 15: Number of Employees per Position_
+
+![6 4 - Number of Employees per Workplace](https://github.com/kdkrle/employee_data/assets/59825527/15128c4a-d087-4f67-aad3-75b5ee5571d4)
+
+_Picture 16: Number of Employees per Workplace_
+
+![6 5 - Percentage of Employees per Sector](https://github.com/kdkrle/employee_data/assets/59825527/e0f82a3c-a97a-46aa-9036-00ba789878d7)
+
+_Picture 17: Percentage of Employees per Sector_
+
+![6 6 - Ratio of Current and Former Employees](https://github.com/kdkrle/employee_data/assets/59825527/e14814f8-d86a-48d0-9f52-7918ed378fb0)
+
+_Picture 18: Ratio of Current and Former Employees_
+
+![6 7 - Ratio of Employees With Mobile and Landline Phones](https://github.com/kdkrle/employee_data/assets/59825527/54853c0f-69e3-4857-9230-fc3ed1c9d5e4)
+
+_Picture 19: Ratio of Employees With Mobile and Landline Phones_
+
+![6 8 - Ratio of Employees With and Without Email](https://github.com/kdkrle/employee_data/assets/59825527/d3b2bb99-e229-4053-8197-f60001438454)
+
+_Picture 20: Ratio of Employees With and Without Email_
+
+![6 9 - Ratio of Former and Current Employees per Workplace](https://github.com/kdkrle/employee_data/assets/59825527/babe94e8-1f21-430b-9b26-1e2668cfdb99)
+
+_Picture 21: Ratio of Former and Current Employees per Workplace_
+
+![6 10 - Ratio of Former and Current Employees per Position](https://github.com/kdkrle/employee_data/assets/59825527/b0b35423-27ab-4fc3-8c0c-57772f4d380c)
+
+_Picture 22: Ratio of Former and Current Employees per Position_

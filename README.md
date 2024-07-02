@@ -58,19 +58,23 @@ Tables:
 
 ## 5.1. Main Screen
 
-![1 - Main Screen](https://github.com/kdkrle/employee_data/assets/59825527/2ecf1449-1fe3-4ff6-8a39-9636f42e5c32)
-
-_Picture 1: Main Screen_
-
 The main screen contains the logo and name of the company, the title of the 
 application and buttons for selecting actions in the application. Each 
 button has a short explanation next to it, except for the 'Izađi' (Exit) 
 button at the bottom of the screen, which is used to close the application.
 
+![1 - Main Screen](https://github.com/kdkrle/employee_data/assets/59825527/2ecf1449-1fe3-4ff6-8a39-9636f42e5c32)
+
+_Picture 1: Main Screen_
+
 ## 5.2 New employees
 
 By pressing the 'New employees' button on the main screen, a new window 
 opens in which there is a form for entering data about a new employee.
+
+![2 - New Employees](https://github.com/kdkrle/employee_data/assets/59825527/1edaff12-a9da-4fe1-acb9-f92b80e15e9b)
+
+_Picture 2: New Employees_
 
 At the top of the window there is a small logo and the name of the company, 
 next to it is the title of this window.
@@ -99,6 +103,10 @@ By pressing the 'Pregled podataka' (Data review) button on the main screen,
 we open a new window in which we can review the data of all employees who 
 are current employed or used to be.
 
+![3 - Data Review](https://github.com/kdkrle/employee_data/assets/59825527/804d248b-5d8d-4f64-9d0e-ee260f10cba0)
+
+_Picture 3: Data Review_
+
 A specific employee is selected from the 'Izbor radnika' (Employee 
 Selection) drop-down menu. The employees are sorted by last name, and after 
 the last name and first name there is also their ID number, because it is 
@@ -113,6 +121,14 @@ At the bottom is a 'Zatvori' (Close) button that closes this window.
 The 'Ažuriranje' (Update) button on the main screen takes us to the form 
 which updates existing data. At the top, there is again a logo with the 
 name of the company, as well as the title of this form.
+
+![4a - Update (upper part)](https://github.com/kdkrle/employee_data/assets/59825527/edcf1fd3-c149-4623-a6cc-4e230e32b021)
+
+_Picture 4: Update (upper part)_
+
+![4b - Update (bottom part)](https://github.com/kdkrle/employee_data/assets/59825527/de23fb85-6dfd-4c3a-843f-14b2820859be)
+
+_Picture 5: Update (bottom part)_
 
 Next is the frame called 'Kriterijumi' (Criteria) in which we can use criteria 
 (filters) to reduce the list for selecting workers. At the top of the frame 

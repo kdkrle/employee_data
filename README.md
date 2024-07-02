@@ -58,6 +58,10 @@ Tables:
 
 ## 5.1. Main Screen
 
+![1 - Main Screen](https://github.com/kdkrle/employee_data/assets/59825527/2ecf1449-1fe3-4ff6-8a39-9636f42e5c32)
+
+_Picture 1: Main Screen_
+
 The main screen contains the logo and name of the company, the title of the 
 application and buttons for selecting actions in the application. Each 
 button has a short explanation next to it, except for the 'Izađi' (Exit) 

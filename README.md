@@ -224,8 +224,6 @@ _Picture 12: Graphics_
 Examples:
 ![6 1 - Number of Positions per Sector](https://github.com/kdkrle/employee_data/assets/59825527/ad77bb7e-d968-417f-ac52-3ab1dae35ec6)
 
-
-
 _Picture 13: Number of Positions per Sector_
 
 ![6 2 - Number of Employees per Employment Year](https://github.com/kdkrle/employee_data/assets/59825527/8da39aa2-ad45-46d3-b376-45033c911628)

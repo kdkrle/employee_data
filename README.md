@@ -6,7 +6,7 @@ The project was done as an integral part of the practice course "Python
 Developer - Advanced" in the company **ITOiP** (IT Training and Practice - 
 https://itoip.rs).
 
-System for management and entry of basic data on former and employed workers.
+System for management and entry of basic data on former and current employees.
 
 The application was made in Python, with the help of the PostgreSQL 
 database management system. The 'Custom Tkinter' library was used to create 
@@ -80,16 +80,16 @@ At the top of the window there is a small logo and the name of the company,
 next to it is the title of this window.
 
 Below that is a frame called 'Employee ID' in which a new ten-digit ID is 
-generated that does not exist in the database.
+generated, that does not exist in the database.
 
 After that, there is a section called 'Lični podaci' (Personal data) in which 
 there are fields for entering the name, surname, address, phone and email, 
 if the latter exists. The first four input fields are required. If they are 
 not filled in, a notification about unfilled fields pops up.
 
-Then follows the frame with the name 'Podaci o zaposlenju' (Employment data),
-in which the position of the new employee in the company, the name of the 
-location of his workplace and the date of employment are entered.
+Then there follows the frame with the name 'Podaci o zaposlenju' (Employment 
+data), in which the position of the new employee in the company, the name 
+of the location of his workplace and the date of employment are entered.
 
 Below is a notice about the tag that comes after the names of required fields.
 
@@ -130,11 +130,11 @@ _Picture 4: Update (upper part)_
 
 _Picture 5: Update (bottom part)_
 
-Next is the frame called 'Kriterijumi' (Criteria) in which we can use criteria 
-(filters) to reduce the list for selecting workers. At the top of the frame 
-is the basic information for using these filters, followed by drop-down 
-menus with the selection of workers in a specific position, in a specific 
-location, or by whether the worker is still employed or not.
+The next is the frame called 'Kriterijumi' (Criteria) in which we can use 
+criteria (filters) to reduce the list for selecting workers. At the top of 
+the frame is the basic information for using these filters, followed by 
+drop-down menus with the selection of workers in a specific position, in a 
+specific location, or by whether the worker is still employed or not.
 
 Selecting one of the filters also changes the list for selecting workers. 
 If no filter is selected, the 'Izbor radnika' (Employee Selection) drop-down 
@@ -147,11 +147,11 @@ automatically displayed. In this frame there is also the employee ID, which
 cannot be changed, and information about whether the worker is still 
 employed or not.
 
-The next box 'Podaci za menjanje' (Data to change) has three columns. The 
-first column contains the data names, the second the current data from the 
-database, and the third the input fields, drop-down menus and date 
+The next frame 'Podaci za menjanje' (Data to change) has three columns. The 
+first column contains the data names, the second one the current data from 
+the database, and the third one the input fields, drop-down menus and date 
 selection fields. The data can be updated due to its change or bad entry in 
-the database. All, several data or only one of them can be changed.
+the database. All data, several or only one of them can be changed.
 
 The 'Ažuriraj' (Update) button inserts new data into the associated tables. 
 The 'Resetuj' (Reset) button removes filters, worker selection and all data, 
@@ -168,13 +168,14 @@ company, next to which is the title of the window.
 
 _Picture 6: Reports_
 
-Below is a frame for choosing one of several options, which are also a short 
-description of the results that we will get by opening a new form.
+Below is a frame for choosing one of several options, which are, at the 
+same time, a short description of the results that we will get by opening a 
+new form.
 
 'Hijerarhija firme' (Company Hierarchy) is a graphic representation of the 
 level of hierarchy in the company. Below the title and subtitle is a short 
 legend and information to interpret this display. The display itself is 
-below that in a separate frame 'Hijerarhija pozicija u firmi' (Hierarchy of 
+below that, in a separate frame 'Hijerarhija pozicija u firmi' (Hierarchy of 
 positions in the company).
 
 ![5 1a - Company Hierarchy (upper part)](https://github.com/kdkrle/employee_data/assets/59825527/e2b1ed2a-a16f-4b46-8fe4-62b3a0f9ee27)
@@ -194,10 +195,10 @@ employee has in the corresponding position.
 _Picture 9: Positions and Responsibilities_
 
 The option 'Informacije o radnim mestima' (Workplace information) opens a 
-new window with information in three columns. The first is a short 
-designation for the workplace, the second is the full name of the workplace, 
-and the third is the location, i.e. the address where the workplace is 
-located.
+new window with information in three columns. The first one is a short 
+designation for the workplace, the second one is the full name of the 
+workplace, and the third one is the location, i.e. the address where the 
+workplace is located.
 
 ![5 3 - Workplace Information](https://github.com/kdkrle/employee_data/assets/59825527/65d265fc-dd53-4a24-9bde-7bab620aa8dc)
 
@@ -215,7 +216,7 @@ _Picture 11: Sectors Scope_
 
 Pressing the last button on the main form opens a window for selecting one 
 of the graphics or charts. There is a choice of ten different types of 
-graphical representation of the relationship between the data we have.
+graphical representation of the relation between the data we have.
 
 ![6 - Graphics](https://github.com/kdkrle/employee_data/assets/59825527/a9d833da-e5f5-4cce-8c2f-e020708804d6)
 

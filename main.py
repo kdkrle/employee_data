@@ -10,7 +10,7 @@ root.iconbitmap("pics/logo_icon.ico")
 
 
 def len_char_limit(inp):
-    """Ograničavanje broja i vrste karaktera (samo brojevi)."""
+    """Limiting the number and type of characters (digits only)."""
     
     if inp.isdigit() and len(inp) <= 10:
         return True
@@ -21,7 +21,7 @@ def len_char_limit(inp):
 
 
 def zatvaranje_aplickacije():
-    """Pitanje o zatvaranju aplikacije."""
+    """Question about exiting the application and closing it."""
     
     msg = cmb.CTkMessagebox(
         title="Zatvaranje aplikacije",
@@ -39,10 +39,11 @@ def zatvaranje_aplickacije():
 
 
 def novi_radnici():
-    """Forma za unošenje podataka o novim radnicima."""
+    """Form for entering data on new employees."""
     
     def novi_radnik_unos_podataka():
-        """Unos podataka o novom radniku u tabelu 'radnici'."""
+        """Entering data about a new employee in the 'radnici' (workers) 
+        table."""
         
         if not ime_unos_ent.get():
             cmb.CTkMessagebox(
@@ -97,7 +98,7 @@ def novi_radnici():
                 lokacije.lokacije_df.pun_naziv == lokacija_combo.get()
             ].to_string(index=False)
             
-            # Dodavanje teksta o datumu zapošljavanja u kolonu 'istorija'.
+            # Adding employment date text to the 'istorija' (history) column
             istorija_txt = f"Zaposlen: {datum_zaposljavanja_de.get()};"
             
             podaci_za_unos = [
@@ -123,7 +124,7 @@ def novi_radnici():
                 font=("Calibri", 18)
             )
             
-            # Brisanje unetih podataka.
+            # Deleting entered data
             ime_unos_ent.delete(0, "end")
             prezime_unos_ent.delete(0, "end")
             adresa_unos_ent.delete(0, "end")
@@ -132,23 +133,23 @@ def novi_radnici():
             pozicija_combo.set("")
             lokacija_combo.set("")
             
-            # Generisanje novog ID broja radnika.
+            # Generating of a new employee ID number
             novi_id_broj = radnici.id_broj_radnika()
             id_vrednost.configure(text=novi_id_broj)
     
-    # Nova forma za unos podataka o novim radnicima.
+    # New form for entering data on new employees
     novi_radnici_tl = ctk.CTkToplevel(root)
     novi_radnici_tl.title("Podaci o novom radniku")
     novi_radnici_tl.resizable(False, False)
     novi_radnici_tl.attributes("-topmost", "true")
     novi_radnici_tl.grab_set()
     
-    # CustomTkinter ima bag kada je u pitanju postavljanje ikone na Toplevel
-    # formu, pa zbog toga ne može da se koristi samo 'iconbitmap' komanda.
+    # CustomTkinter has a bug in placing the icon on the Toplevel form,
+    # so the 'after' method must be used
     novi_radnici_tl.after(200, lambda: novi_radnici_tl.iconbitmap(
         "pics/logo_icon.ico"))
     
-    # Okviri za određene grupe podataka.
+    # Frames for specific groups of data.
     nr_logo_naslov_frm = ctk.CTkFrame(novi_radnici_tl, fg_color="transparent")
     sifra_frm = ctk.CTkFrame(
         novi_radnici_tl,
@@ -178,7 +179,7 @@ def novi_radnici():
     info_frm.pack(expand=True, fill="x", padx=40, pady=10)
     unos_dugmad_frm.pack(expand=True, fill="x", padx=20, pady=20)
     
-    # Logo i naslov.
+    # Logo and title
     nr_logo_naslov_frm.grid_columnconfigure((0, 1), weight=1)
     logo_nr_lbl = ctk.CTkLabel(
         nr_logo_naslov_frm,
@@ -197,7 +198,7 @@ def novi_radnici():
     )
     naslov_nr_lbl.grid(column=1, row=0, padx=20)
     
-    # Šifra.
+    # Frame title 'ID radnika' (employee ID)
     sifra_frm.grid_columnconfigure(0, weight=1)
     id_lbl = ctk.CTkLabel(
         sifra_frm,
@@ -218,7 +219,7 @@ def novi_radnici():
     )
     id_vrednost.grid(column=0, row=1, sticky="ew", padx=2, pady=10)
     
-    # Lični podaci.
+    # Frame title 'Lični podaci' (personal data)
     licni_podaci_frm.grid_columnconfigure((0, 1), weight=1)
     licni_podaci_lbl = ctk.CTkLabel(
         licni_podaci_frm,
@@ -314,7 +315,7 @@ def novi_radnici():
     )
     email_unos_ent.grid(column=0, row=6, sticky="w", padx=20, pady=(0, 20))
     
-    # Podaci o zaposlenju.
+    # Employment data
     zaposlenje_frm.grid_columnconfigure((0, 1), weight=1)
     podaci_zaposlenje_lbl = ctk.CTkLabel(
         zaposlenje_frm,
@@ -385,7 +386,7 @@ def novi_radnici():
     datum_zaposljavanja_de.grid(column=0, row=4, sticky="w", padx=20,
                                 pady=(0, 20))
     
-    # Informacija o popunjavanju polja.
+    # Information about filling in the fields
     info_lbl = ctk.CTkLabel(
         info_frm,
         fg_color="transparent",
@@ -395,7 +396,7 @@ def novi_radnici():
     )
     info_lbl.pack(side="left")
     
-    # Dugme za izlazak i dugme za unos podataka o novom radniku.
+    # Exit button and button to enter new employee data
     odustani_btn = ctk.CTkButton(
         unos_dugmad_frm,
         text="Odustani",
@@ -418,10 +419,10 @@ def novi_radnici():
 
 
 def pregled_podataka():
-    """Uvid u podatke o pojedinačnim radnicima."""
+    """Insight into data on individual employees."""
     
     def izabrani_radnik(event):
-        """Promene koje se dešavaju prilikom izbora radnika."""
+        """Changes that occur when an employee is selected."""
         
         radnikov_id = izbor_combo.get()[-10:]
         radnikovi_podaci = radnici.radnici_df[
@@ -445,36 +446,36 @@ def pregled_podataka():
         for label in lista_polja_za_popunjavanje:
             label.configure(text="")
         
-        # Ime i prezime
+        # Name and surname
         ime_i_prezime_str = f"{radnikovi_podaci[2]} {radnikovi_podaci[1]}"
         ime_i_prezime_val.configure(text=ime_i_prezime_str)
         
         # ID
         id_zaposlenog_val.configure(text=radnikovi_podaci[0])
         
-        # Adresa
+        # Address
         adresa_val.configure(text=radnikovi_podaci[3])
         
-        # Telefon
+        # Phone
         telefon_val.configure(text=radnikovi_podaci[4])
         
         # Email
         email_val.configure(text=radnikovi_podaci[5])
         
-        # Pozicija
+        # Position
         pozicija_val.configure(text=radnikovi_podaci[6])
         
-        # Radno mesto
+        # Workplace
         radno_mesto_str = lokacije.lokacije_df.pun_naziv[
             lokacije.lokacije_df.sifra == radnikovi_podaci[7]
         ].to_string(index=False)
         radno_mesto_val.configure(text=radno_mesto_str)
         
-        # Istorija radnika
+        # Employee history
         istorija_sredjeno = radnikovi_podaci[8].replace(";", "\n")
         istorija_zaposlenog_val.configure(text=istorija_sredjeno)
         
-        # Zaposlen
+        # Employment
         if radnikovi_podaci[9]:
             zaposlen = "Da"
         else:
@@ -482,11 +483,11 @@ def pregled_podataka():
         
         zaposlen_val.configure(text=zaposlen)
         
-        # Datum zapošljavanja
+        # Date of employment
         datum_zaposljavanja_str = radnikovi_podaci[10].strftime("%d. %m. %Y.")
         datum_zaposlavanja_val.configure(text=datum_zaposljavanja_str)
         
-        # Datum prestanka radnog odnosa
+        # Date of termination of employment
         if radnikovi_podaci[11]:
             prekid_odnosa_str = radnikovi_podaci[11].strftime("%d. %m. %Y.")
             prestanak_odnosa_val.configure(text=prekid_odnosa_str)
@@ -499,7 +500,7 @@ def pregled_podataka():
     pregled_tl.after(200, lambda: pregled_tl.iconbitmap(
         "pics/logo_icon.ico"))
 
-    # Okvir za logo i naslov i okvir za podatke.
+    # Logo and title frame and data frame
     pregled_logo_naslov_frm = ctk.CTkFrame(pregled_tl, fg_color="transparent")
     izbor_frm = ctk.CTkFrame(pregled_tl, fg_color="transparent")
     podaci_frm = ctk.CTkFrame(pregled_tl, fg_color="transparent")
@@ -517,7 +518,7 @@ def pregled_podataka():
     )
     zatvori_pregled_btn.pack(padx=40, pady=40, anchor="e")
     
-    # Logo i naslov.
+    # Logo and title
     pregled_logo_naslov_frm.grid_columnconfigure((0, 1), weight=1)
     logo_pregled_lbl = ctk.CTkLabel(
         pregled_logo_naslov_frm,
@@ -536,7 +537,7 @@ def pregled_podataka():
     )
     naslov_pregled_lbl.grid(column=1, row=0, padx=20)
     
-    # Izbor radnika (Label + ComboBox).
+    # Worker selection (Label + ComboBox)
     izbor_lbl = ctk.CTkLabel(
         izbor_frm,
         text="Izbor radnika:",
@@ -558,7 +559,7 @@ def pregled_podataka():
     )
     izbor_combo.grid(column=0, row=1, padx=30, pady=(0, 20), sticky="w")
     
-    # Podaci o radniku.
+    # Employee data
     ime_i_prezime_lbl = ctk.CTkLabel(
         podaci_frm,
         text="Ime i prezime:",
@@ -784,11 +785,11 @@ def pregled_podataka():
 
 
 def azuriranje_podataka():
-    """Ažuriranje postojećih podataka u tabeli 'radnici'."""
+    """Updating existing data in the 'radnici' (workers) table."""
     
     def kriterijum_pozicija(event):
-        """Promene koje se dešavaju kada se izabere bilo koja vrednost iz
-        padajućeg menija 'Pozicija'."""
+        """Changes that occur by selecting any value from the 'Pozicija' 
+        (Position) drop-down menu."""
         krit_lokacija_combo.set("")
         krit_zaposlen_combo.set("")
         azur_izbor_radnika_combo.set("")
@@ -799,8 +800,8 @@ def azuriranje_podataka():
         azur_izbor_radnika_combo.configure(values=radnici.df_sortiranje(df))
     
     def kriterijum_radno_mesto(event):
-        """Promene koje se dešavaju kada se izabere bilo koja vrednost iz
-        padajućeg menija 'Radno mesto'."""
+        """Changes that occur by selecting any value from the 'Radno mesto' 
+        (Workplace) drop-down menu."""
         krit_pozicija_combo.set("")
         krit_zaposlen_combo.set("")
         azur_izbor_radnika_combo.set("")
@@ -815,8 +816,8 @@ def azuriranje_podataka():
         azur_izbor_radnika_combo.configure(values=radnici.df_sortiranje(df))
     
     def kriterijum_zaposlen(event):
-        """Promene koje se dešavaju kada se izabere bilo koja vrednost iz
-        padajućeg menija 'U radnom odnosu'."""
+        """Changes that occur by selecting any value from the 'U radnom
+        odnosu' (Employed) drop-down menu."""
         krit_lokacija_combo.set("")
         krit_pozicija_combo.set("")
         azur_izbor_radnika_combo.set("")
@@ -832,7 +833,7 @@ def azuriranje_podataka():
         azur_izbor_radnika_combo.configure(values=radnici.df_sortiranje(df))
     
     def resetovanje_podataka():
-        """Resetovanje podatka prethodno izabranog radnika."""
+        """Resetting the data of the previously selected employee."""
         
         labels = [
             azur_id_radnika_val,
@@ -857,30 +858,30 @@ def azuriranje_podataka():
         combos = [azur_pozicija_nova_combo, azur_rmesto_novo_combo]
         date_entries = [azur_datum_zapos_novi_de, azur_datum_prekid_novi_de]
         
-        # Resetovanje svih Label widgeta.
+        # Reset all Label widgets
         for label in labels:
             label.configure(text="")
         
-        # Resetovanje svih Entry widgeta.
+        # Reset all Entry widgets
         for entry in entries:
             entry.delete(0, "end")
         
-        # Resetovanje Combobox widgeta.
+        # Reset all Combobox widgets
         for combo in combos:
             combo.set("")
         
-        # Onespobljavanje DateEntry widgeta.
+        # Disabling the DateEntry widget
         for de in date_entries:
             de.delete(0, "end")
             de.configure(state="disabled")
 
     def resetovanje_kriterijuma():
-        """Resetovanje svih vrednosti."""
+        """Reset all values."""
     
         combos = [krit_pozicija_combo, krit_lokacija_combo,
             krit_zaposlen_combo, azur_izbor_radnika_combo]
         
-        # Resetovanje svih Combobox widgeta.
+        # Reset all Combobox widgets
         for combo in combos:
             combo.set("")
         azur_izbor_radnika_combo.configure(
@@ -889,9 +890,9 @@ def azuriranje_podataka():
         resetovanje_podataka()
 
     def izbor_radnik(event):
-        """Promene koje se dešavaju prilikom izbora radnika."""
+        """Changes that occur by selecting an employee."""
         
-        # Tekući podaci radnika.
+        # Current information about the worker
         id_izabranog_radnika = azur_izbor_radnika_combo.get()[-10:]
         tekuci_podaci = radnici.radnici_df[
             radnici.radnici_df.id_radnika == id_izabranog_radnika
@@ -900,7 +901,7 @@ def azuriranje_podataka():
         # ID
         azur_id_radnika_val.configure(text=id_izabranog_radnika)
         
-        # Da li je radnik u radnom odnosu.
+        # Is the worker employed
         if tekuci_podaci[9]:
             azur_zaposlen_val.configure(text="Da")
             azur_datum_zapos_novi_de.delete(0, "end")
@@ -912,7 +913,7 @@ def azuriranje_podataka():
             azur_datum_prekid_novi_de.delete(0, "end")
             azur_datum_prekid_novi_de.configure(state="disabled")
         
-        # Unos ostalih podataka.
+        # Entering other data
         azur_ime_staro_lbl.configure(text=tekuci_podaci[1])
         azur_prezime_staro_lbl.configure(text=tekuci_podaci[2])
         azur_adresa_stara_lbl.configure(text=tekuci_podaci[3])
@@ -934,9 +935,9 @@ def azuriranje_podataka():
             azur_datum_prekid_stari_lbl.configure(text="")
     
     def primena_azuriranja():
-        """Ubacivanje novih podataka pritiskom na dugme 'Ažuriraj'."""
+        """Entering new data by pressing the 'Ažuriraj' (Update) button."""
         
-        # Ako radnik nije izabran, ažuriranje ne može da se izvrši.
+        # If the worker is not selected, the update cannot be performed
         if azur_izbor_radnika_combo.get():
             if azur_rmesto_novo_combo.get():
                 radno_mesto_value = lokacije.lokacije_df.sifra[
@@ -945,8 +946,9 @@ def azuriranje_podataka():
             else:
                 radno_mesto_value = ""
             
-            # Dodatak teksta u koloni 'istorija', ukoliko se prekine radni
-            # odnos ili se radnik ponovo zaposli.
+            # Addition of text in the 'istorija' (history) column, if the 
+            # employment relationship is terminated or the employee is 
+            # re-employed
             istorija_dodatak = ""
             radni_odnos = radnici.radnici_df.zaposlen[
                 radnici.radnici_df.id_radnika == azur_id_radnika_val.cget(
@@ -1002,7 +1004,7 @@ def azuriranje_podataka():
             )
     
     
-    # Nova forma za ažuriranje podataka.
+    # New form for updating data
     azuriranje_tl = ctk.CTkToplevel(root)
     azuriranje_tl.title("Ažuriranje podataka")
     azuriranje_tl.resizable(False, False)
@@ -1011,7 +1013,7 @@ def azuriranje_podataka():
     azuriranje_tl.after(200, lambda: azuriranje_tl.iconbitmap(
         "pics/logo_icon.ico"))
     
-    # Okvir za ostale okvire.
+    # Frame for other frames
     azuriranje_frm = ctk.CTkScrollableFrame(
         azuriranje_tl,
         fg_color="transparent",
@@ -1020,7 +1022,7 @@ def azuriranje_podataka():
     )
     azuriranje_frm.pack(expand=True, fill="both")
     
-    # Okviri za određene grupe podataka.
+    # Frames for specific groups of data
     azur_logo_naslov_frm = ctk.CTkFrame(azuriranje_frm, fg_color="transparent")
     azur_kriterijumi_frm = ctk.CTkFrame(
         azuriranje_frm,
@@ -1048,7 +1050,7 @@ def azuriranje_podataka():
     azur_podaci_frm.pack(expand=True, fill= "x", padx=20, pady=10)
     azur_dugmad_frm.pack(expand=True, fill="x", padx=20, pady=20)
     
-    # Logo i naslov.
+    # Logo and title
     azur_logo_naslov_frm.grid_columnconfigure((0, 1), weight=1)
     logo_azur_lbl = ctk.CTkLabel(
         azur_logo_naslov_frm,
@@ -1067,7 +1069,7 @@ def azuriranje_podataka():
     )
     naslov_azur_lbl.grid(column=1, row=0, padx=20)
     
-    # Kriterijumi.
+    # Criteria
     azur_kriterijumi_frm.grid_columnconfigure((0, 1, 2), weight=1)
     kriterijumi_lbl = ctk.CTkLabel(
         azur_kriterijumi_frm,
@@ -1166,7 +1168,7 @@ def azuriranje_podataka():
     krit_zaposlen_combo.grid(column=2, row=3, sticky="w", padx=20,
                              pady=(0, 20))
     
-    # Izbor radnika.
+    # Employee selection
     azur_izbor_frm.grid_columnconfigure((0, 1, 2), weight=1)
     izbor_azur_lbl = ctk.CTkLabel(
         azur_izbor_frm,
@@ -1241,7 +1243,7 @@ def azuriranje_podataka():
     azur_zaposlen_val.grid(column=2, row=2, sticky="ew", padx=50,
                                pady=(0, 20))
     
-    # Podaci koji mogu da se menjaju.
+    # Data subject to change
     azur_podaci_frm.grid_columnconfigure((0, 1, 2), weight=1)
     azur_menjanje_lbl = ctk.CTkLabel(
         azur_podaci_frm,
@@ -1522,7 +1524,7 @@ def azuriranje_podataka():
     azur_datum_prekid_novi_de.grid(column=2, row=10, sticky="ew", padx=50,
                                    pady=(10, 20))
     
-    # Dugmad za ažuriranje, resetovanje kriterijuma i zatvaranje prozora.
+    # Update, reset criteria and close window buttons
     azur_zatvori_btn = ctk.CTkButton(
         azur_dugmad_frm,
         text="Zatvori",
@@ -1555,10 +1557,11 @@ def azuriranje_podataka():
 
 
 def izvestaji():
-    """Prikaz raznih podataka."""
+    """Display of various data."""
     
     def hijerarhija():
-        """Vizuelni prikaz hijerarhije firme, uz objašnjenja."""
+        """Visual representation of the company's hierarchy, 
+        with explanations."""
         
         hijerarhija_tl = ctk.CTkToplevel(izvestaji_tl)
         hijerarhija_tl.title("Hijerarhija firme")
@@ -1568,7 +1571,7 @@ def izvestaji():
         hijerarhija_tl.after(200, lambda: hijerarhija_tl.iconbitmap(
             "pics/logo_icon.ico"))
         
-        # ScrollableFrame za ostale okvire.
+        # ScrollableFrame for other frames
         glavni_sf = ctk.CTkScrollableFrame(
             hijerarhija_tl,
             fg_color="transparent",
@@ -1577,7 +1580,7 @@ def izvestaji():
         )
         glavni_sf.pack(expand=True, fill="both")
         
-        # Okviri unutar glavno, za svaku grupu widgeta na formi.
+        # Frames inside the main frame, for each group of widgets on the form
         hij_naslov_frm = ctk.CTkFrame(glavni_sf, fg_color="transparent")
         hij_info_frm = ctk.CTkFrame(
             glavni_sf,
@@ -1600,7 +1603,7 @@ def izvestaji():
         hij_pozicije_frm.pack(expand=True, fill="x", pady=10, padx=20)
         hij_zatvori_frm.pack(expand=True, fill="x", pady=(10, 20))
         
-        # Naslov.
+        # Title
         hij_naslov_lbl = ctk.CTkLabel(
             hij_naslov_frm,
             text="HIJERARHIJA FIRME",
@@ -1618,7 +1621,7 @@ def izvestaji():
         )
         hij_naslov_lbl.pack(expand=True, fill="x", ipady=10)
         
-        # Informacije i legenda.
+        # Information and legend
         hij_info_frm.grid_columnconfigure((0, 1), weight=1)
         hij_info_zaglavlje_lbl = ctk.CTkLabel(
             hij_info_frm,
@@ -1762,7 +1765,7 @@ def izvestaji():
         hij_info_objasnjenje4_txt.grid(row=3, padx=20, pady=5,
                                        sticky="w")
 
-        # Hijerarhija (nadređenost) pozicija u firmi.
+        # Hierarchy (superiority) of positions in the company
         hij_pozicije_frm.grid_columnconfigure(0, weight=1)
         hij_poz_zaglavlje_lbl = ctk.CTkLabel(
             hij_pozicije_frm,
@@ -1975,7 +1978,7 @@ def izvestaji():
         hij_odrzavanje_voz_lbl.grid(row=22, padx=(350, 50), pady=(0, 50),
                                     ipadx=10, ipady=5, sticky="w")
         
-        # Dugme za zatvaranje prozora.
+        # Button to close the window
         hij_zatvori_btn = ctk.CTkButton(
             hij_zatvori_frm,
             text="Zatvori",
@@ -1987,7 +1990,7 @@ def izvestaji():
         hij_zatvori_btn.pack(side="right", padx=30, pady=(20, 10))
 
     def spisak_pozicija():
-        """Spisak pozicija u firmi i njihove odgovornosti."""
+        """List of positions in the company and their responsibilities."""
         
         pozicije_tl = ctk.CTkToplevel(izvestaji_tl)
         pozicije_tl.title("Pozicije u firmi")
@@ -1997,7 +2000,7 @@ def izvestaji():
         pozicije_tl.after(200, lambda: pozicije_tl.iconbitmap(
             "pics/logo_icon.ico"))
         
-        # Potrebni podaci.
+        # Data needed
         poz_spisak = pozicije.pozicije_df.naziv.to_list()
         odgovornosti_spisak = pozicije.pozicije_df.opis.to_list()
         
@@ -2010,7 +2013,7 @@ def izvestaji():
                 odgovornosti_string += f"{stavka}\n"
             odgovornosti_uredjeno.append(odgovornosti_string)
         
-        # ScrollableFrame.
+        # ScrollableFrame
         poz_sf = ctk.CTkScrollableFrame(
             pozicije_tl,
             fg_color="transparent",
@@ -2019,7 +2022,7 @@ def izvestaji():
         )
         poz_sf.pack(expand=True, fill="both")
         
-        # Okviri za podatke i za dugme za zatvranje forme.
+        # Frames for the data and for the button to close the window
         poz_naslov_frm = ctk.CTkFrame(poz_sf, fg_color="transparent")
         poz_podaci_frm = ctk.CTkFrame(poz_sf, fg_color="transparent")
         poz_zatvori_frm = ctk.CTkFrame(poz_sf, fg_color="transparent")
@@ -2028,7 +2031,7 @@ def izvestaji():
         poz_podaci_frm.pack(expand=True, fill="x", pady=10, padx=20)
         poz_zatvori_frm.pack(expand=True, fill="x", pady=10, padx=20)
         
-        # Naslov.
+        # Title
         poz_naslov_lbl = ctk.CTkLabel(
             poz_naslov_frm,
             text="POZICIJE I ODGOVORNOSTI",
@@ -2038,7 +2041,7 @@ def izvestaji():
         )
         poz_naslov_lbl.pack(expand=True, fill="x", ipady=10)
         
-        # Pozicije i odgovornosti.
+        # Positions and responsibilities
         for i in range(len(poz_spisak)):
             ctk.CTkLabel(
                 poz_podaci_frm,
@@ -2054,7 +2057,7 @@ def izvestaji():
                 justify="left"
             ).grid(column=1, row=i, padx=10, pady=20, sticky="nw")
         
-        # Dugme za zatvaranje.
+        # Close button
         poz_zatvori_btn = ctk.CTkButton(
             poz_zatvori_frm,
             text="Zatvori",
@@ -2066,7 +2069,7 @@ def izvestaji():
         poz_zatvori_btn.pack(side="right", padx=30, pady=20)
     
     def radna_mesta():
-        """Spisak radnih mesta sa šiframa i adresama."""
+        """List of workplaces with codes and addresses."""
         
         r_mesta_tl = ctk.CTkToplevel(izvestaji_tl)
         r_mesta_tl.title("Radna mesta")
@@ -2076,14 +2079,14 @@ def izvestaji():
         r_mesta_tl.after(200, lambda: r_mesta_tl.iconbitmap(
             "pics/logo_icon.ico"))
         
-        # Potrebni podaci.
+        # Data needed
         lok_sortirano_df = lokacije.lokacije_df.sort_values(by=["pun_naziv"])
         
         nazivi_lst = lok_sortirano_df.pun_naziv.to_list()
         sifre_lst = lok_sortirano_df.sifra.to_list()
         adrese_lst = lok_sortirano_df.adresa.to_list()
 
-        # ScrollableFrame.
+        # ScrollableFrame
         radna_mesta_sf = ctk.CTkScrollableFrame(
             r_mesta_tl,
             fg_color="transparent",
@@ -2092,7 +2095,7 @@ def izvestaji():
         )
         radna_mesta_sf.pack(expand=True, fill="both")
 
-        # Okviri za određene elemente prozora.
+        # Frames for specific window elements
         rm_naslov_frm = ctk.CTkFrame(radna_mesta_sf, fg_color="transparent")
         rm_podaci_frm = ctk.CTkFrame(
             radna_mesta_sf,
@@ -2106,7 +2109,7 @@ def izvestaji():
         rm_podaci_frm.pack(expand=True, fill= "x", padx= 20, pady=20)
         rm_zatvori_frm.pack(expand=True, fill= "x", padx= 20, pady=10)
         
-        # Naslov.
+        # Title
         rm_naslov_lbl = ctk.CTkLabel(
             rm_naslov_frm,
             text="RADNA MESTA I NJIHOVE ADRESE",
@@ -2116,7 +2119,7 @@ def izvestaji():
         )
         rm_naslov_lbl.pack(expand=True, fill="x", ipady=10, ipadx=20)
         
-        # Radna mesta, njihove šifre i adrese.
+        # Workplaces, their codes and addresses
         rm_podaci_frm.grid_columnconfigure((0, 1, 2), weight=1)
         rm_sifre_lbl = ctk.CTkLabel(
             rm_podaci_frm,
@@ -2169,7 +2172,7 @@ def izvestaji():
                 font=("Calibri", 20)
             ).grid(column=2, row=i+1, pady=10, padx=(100, 0), sticky="w")
         
-        # Dugme za zatvaranje.
+        # Close button
         rm_zatvori_btn = ctk.CTkButton(
             rm_zatvori_frm,
             text="Zatvori",
@@ -2181,7 +2184,7 @@ def izvestaji():
         rm_zatvori_btn.pack(side="right", padx=30, pady=20)
     
     def delokrug_sektora():
-        """Sektori firme i radna mesta koja im pripadaju."""
+        """Sectors of the company and the workplaces belonging to them."""
 
         sektori_tl = ctk.CTkToplevel(izvestaji_tl)
         sektori_tl.title("Delokrug sektora")
@@ -2191,7 +2194,7 @@ def izvestaji():
         sektori_tl.after(200, lambda: sektori_tl.iconbitmap(
             "pics/logo_icon.ico"))
 
-        # Potrebni podaci.
+        # Data needed
         sektori_firme = set(pozicije.pozicije_df.sektor.to_list())
         sektori_sortirano = sorted(list(sektori_firme))
         
@@ -2204,7 +2207,7 @@ def izvestaji():
                 rm_string += f"{r_mesto}\n"
             rm_svih_sektora.append(rm_string)
         
-        # ScrollableFrame.
+        # ScrollableFrame
         sektori_sf = ctk.CTkScrollableFrame(
             sektori_tl,
             fg_color="transparent",
@@ -2213,7 +2216,7 @@ def izvestaji():
         )
         sektori_sf.pack(expand=True, fill="both")
         
-        # Okviri za određene elemente prozora.
+        # Frames for specific window elements
         sek_naslov_frm = ctk.CTkFrame(sektori_sf, fg_color="transparent")
         sek_podaci_frm = ctk.CTkFrame(
             sektori_sf,
@@ -2227,7 +2230,7 @@ def izvestaji():
         sek_podaci_frm.pack(expand=True, fill="x", padx=20, pady=20)
         sek_zatvori_frm.pack(expand=True, fill="x", padx=20, pady=10)
         
-        # Naslov.
+        # Title
         sek_naslov_lbl = ctk.CTkLabel(
             sek_naslov_frm,
             text="PRIPADNOST RADNIH MESTA\nODREĐENIM SEKTORIMA",
@@ -2237,7 +2240,7 @@ def izvestaji():
         )
         sek_naslov_lbl.pack(expand=True, fill="x", ipady=10, ipadx=20)
         
-        # Sektori i radna mesta.
+        # Sectors and workplaces
         sek_podaci_frm.grid_columnconfigure((0, 1), weight=1)
         sek_sektori_lbl = ctk.CTkLabel(
             sek_podaci_frm,
@@ -2277,7 +2280,7 @@ def izvestaji():
                 justify="left"
             ).grid(column=1, row=i+1, padx=(50, 30), pady=10, sticky="nw")
             
-        # Dugme za zatvaranje.
+        # Close button
         sek_zatvori_btn = ctk.CTkButton(
             sek_zatvori_frm,
             text="Zatvori",
@@ -2289,7 +2292,7 @@ def izvestaji():
         sek_zatvori_btn.pack(side="right", padx=30, pady=20)
     
     def izbor_izvestaja(var_get):
-        """Biranje izveštaja i njegov prikaz."""
+        """Selecting a report and displaying it."""
 
         if var_get == "1":
             hijerarhija()
@@ -2301,7 +2304,7 @@ def izvestaji():
             delokrug_sektora()
     
     
-    # Forma za izbor izvštaja.
+    # Report selection form
     izvestaji_tl = ctk.CTkToplevel(root)
     izvestaji_tl.title("Izveštaji")
     izvestaji_tl.resizable(False, False)
@@ -2309,7 +2312,7 @@ def izvestaji():
     izvestaji_tl.after(200, lambda: izvestaji_tl.iconbitmap(
         "pics/logo_icon.ico"))
     
-    # Okviri za određene grupe podataka.
+    # Frames for specific groups of data
     izv_logo_naslov_frm = ctk.CTkFrame(izvestaji_tl, fg_color="transparent")
     izv_radio_frm = ctk.CTkFrame(
         izvestaji_tl,
@@ -2323,7 +2326,7 @@ def izvestaji():
     izv_radio_frm.pack(expand=True, fill= "x", padx=50, pady=20)
     izv_dugmad_frm.pack(expand=True, fill= "x", padx= 30, pady=20)
     
-    # Logo i naslov.
+    # Logo and title
     izv_logo_naslov_frm.grid_columnconfigure((0, 1), weight=1)
     logo_izv_lbl = ctk.CTkLabel(
         izv_logo_naslov_frm,
@@ -2342,7 +2345,7 @@ def izvestaji():
     )
     naslov_izv_lbl.grid(column=1, row=0, padx=20)
     
-    # Radiobuttons.
+    # Radiobuttons
     izvestaji_opcije = {
         "Hijerarhija firme": "1",
         "Spisak pozicija s odgovornostima": "2",
@@ -2387,10 +2390,10 @@ def izvestaji():
 
 
 def grafici():
-    """Grafički prikaz različitih podataka."""
+    """Graphic display of various data."""
     
     def izbor_grafika(var_get):
-        """Izbor grafika koji želimo da prikažemo."""
+        """Selection of a graphic that we want to display."""
         
         if var_get == "1":
             pozicije.broj_pozicija_po_sektorima()
@@ -2413,7 +2416,7 @@ def grafici():
         else:
             radnici.odnos_po_poziciji()
     
-    # Forma za izbor grafika.
+    # Graphic selection form
     grafici_tl = ctk.CTkToplevel(root)
     grafici_tl.title("Grafički prikazi podatka")
     grafici_tl.resizable(False, False)
@@ -2421,7 +2424,7 @@ def grafici():
     grafici_tl.after(200, lambda: grafici_tl.iconbitmap(
         "pics/logo_icon.ico"))
     
-    # Okviri za određene grupe podatka.
+    # Frames for specific groups of data
     graf_logo_naslov_frm = ctk.CTkFrame(grafici_tl, fg_color="transparent")
     graf_radio_frm = ctk.CTkFrame(
         grafici_tl,
@@ -2435,7 +2438,7 @@ def grafici():
     graf_radio_frm.pack(expand=True, fill="x", padx=50, pady=20)
     graf_dugmad_frm.pack(expand=True, fill="x", padx=30, pady=20)
     
-    # Logo i naslov.
+    # Logo and title
     graf_logo_naslov_frm.grid_columnconfigure((0, 1), weight=1)
     logo_graf_lbl = ctk.CTkLabel(
         graf_logo_naslov_frm,
@@ -2454,7 +2457,7 @@ def grafici():
     )
     naslov_graf_lbl.grid(column=1, row=0, padx=20)
     
-    # Radiobuttons.
+    # Radiobuttons
     grafici_opcije = {
         "Broj pozicija po sektorima": "1",
         "Broj zaposlenih po godini zapošljavanja": "2",
@@ -2504,11 +2507,11 @@ def grafici():
     graf_primeni_btn.pack(side="right", padx=10, pady=20)
 
 
-# Frame za logo i naslov.
+# Frames for logo and title
 naslovni_frm = ctk.CTkFrame(root, fg_color="transparent")
 naslovni_frm.pack(pady=(20, 0))
 
-# Logo.
+# Logo
 slika = Image.open("pics/lisica.png")
 
 logo = ctk.CTkImage(slika, size=(200, 249))
@@ -2522,7 +2525,7 @@ logo_lbl = ctk.CTkLabel(
 )
 logo_lbl.grid(column=0, row=0)
 
-# Naslov.
+# Title
 glavni_naslov_lbl = ctk.CTkLabel(
     naslovni_frm,
     text="SISTEM PODATAKA\nO ZAPOSLENIMA",
@@ -2532,11 +2535,11 @@ glavni_naslov_lbl = ctk.CTkLabel(
 )
 glavni_naslov_lbl.grid(column=1, row=0, padx=20)
 
-# Frame za dugmad i objašnjenja.
+# Frames for buttons and explanations
 izbor_frm = ctk.CTkFrame(root, fg_color="transparent")
 izbor_frm.pack(pady=(40, 20))
 
-# Izbor opcije (pritiskom na dugme).
+# Option selection (by pressing the button)
 novi_radnici_btn = ctk.CTkButton(
     izbor_frm,
     text="Novi radnici",
@@ -2592,7 +2595,7 @@ grafici_btn = ctk.CTkButton(
 )
 grafici_btn.grid(column=0, row=4, padx=20, pady=10, sticky="w")
 
-# Objašenje opcija.
+# Explanation of options
 novi_radnici_lbl = ctk.CTkLabel(
     izbor_frm,
     text="Unos podataka o novim radnicima.",
@@ -2628,7 +2631,7 @@ grafici_lbl = ctk.CTkLabel(
 )
 grafici_lbl.grid(column=1, row=4, padx=20, pady=10, sticky="w")
 
-# Dugme za zatvaranje aplikacije.
+# Button to close the application
 izlazak_btn = ctk.CTkButton(
     root,
     text="Izađi",

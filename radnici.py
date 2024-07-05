@@ -7,7 +7,7 @@ import numpy as np
 
 
 class Radnici:
-    """Manipulacija podacima iz tabele 'radnici'."""
+    """Managing data from the 'radnici' (workers) table."""
     
     def __init__(self):
         self.con = pg.connect(
@@ -20,12 +20,12 @@ class Radnici:
         self.radnici_df = None
     
     def radnici_ucitavanje(self):
-        """Osvežavanje podataka tabele 'radnici'."""
+        """Refreshing the 'radnici' (workers) table data."""
         
         self.radnici_df = pd.read_sql_query("SELECT * FROM radnici", self.con)
     
     def id_broj_radnika(self):
-        """Generisanje jedinstvenog ID broja (šifre) radnika."""
+        """Generating of a unique employee ID number (code)."""
         
         id_spisak = self.radnici_df.id_radnika.to_list()
         
@@ -39,7 +39,8 @@ class Radnici:
             return id_zaposlenog
     
     def novi_radnik(self, podaci):
-        """Unos podataka o novom radniku u tabelu 'radnici' baze podataka."""
+        """Entering data about a new employee in the 'radnici' (workers) 
+        table of the database."""
         
         novi_radnik_sql = f"""
         INSERT INTO radnici (id_radnika, ime, prezime, adresa, telefon,
@@ -52,16 +53,17 @@ class Radnici:
         kursor = self.con.cursor()
         kursor.execute(novi_radnik_sql)
         self.con.commit()
-        # Kursor se zatvara ovde, a konekcija pritiskom na dugme 'Odustani',
-        # inače, posle unosa podtaka o prvom radniku, sledeći podaci ne mogu da
-        # se unesu dok se forma ne zatvori i ponovo otvori.
+        # The cursor is closed here, and the connection is closed by 
+        # pressing the 'Odustani' (Cancel) button, otherwise, after entering 
+        # the first worker data, the following data cannot be entered until 
+        # the form is closed and reopened.
         kursor.close()
         
         self.radnici_ucitavanje()
 
     def df_sortiranje(self, df):
-        """Sortiranje Dataframe podataka po prezimenima i vraćanje soritirane
-        liste imena i prezimena, s id brojem."""
+        """Sorting Dataframe data by surnames and returning a sorted list 
+        of first and last names, with an ID number."""
         
         prezime_ime_sort_df = df.sort_values(by=["prezime", "ime"])
         
@@ -71,9 +73,9 @@ class Radnici:
         
         lista_radnika = []
         for i in range(len(id_lista)):
-            # Sortiranje se vrši po prezmenu/imenu, ali, budući da je moguće
-            # da postoje ista imena i prezimena, potrebno je da postoji i ID
-            # koji će ih razlikovati.
+            # Sorting is done by last name/first name, but since it is 
+            # possible to have the same first and last name, it is necessary
+            # to have an ID that will distinguish them.
             id_prezime_ime = f"{lista_prezimena[i]} {lista_imena[i]} - " \
                              f"{id_lista[i]}"
             
@@ -82,7 +84,7 @@ class Radnici:
         return lista_radnika
 
     def azuriranje(self, dict, id, dodatak, zaposlen):
-        """Ažuriranje podataka tabele 'radnici' novim podacima."""
+        """Updating the data of the 'radnici' (workers) table with new data."""
         
         try:
             kursor = self.con.cursor()
@@ -90,8 +92,9 @@ class Radnici:
             for key, value in dict.items():
                 if value:
                     if key == "datum_zaposljavanja":
-                        # Ukoliko se bivši radnik ponovo zapošljava,
-                        # potrebno je izbrisati datum prestanka radnog odnosa.
+                        # If the former employee is re-employed, 
+                        # it is necessary to delete the date of termination 
+                        # of employment.
                         azuriranje_sql = f"""
                         UPDATE radnici
                         SET prestanak_radnog_odnosa = null
@@ -120,8 +123,8 @@ class Radnici:
                 
                 kursor.execute(istorija_sql)
                 self.con.commit()
-            # Kursor se zatvara ovde, a konekcija se zatvara pritiskom na
-            # dugme 'Zatvori' prozora za ažuriranje.
+            # The cursor closes here and the connection is closed by 
+            # pressing the 'Zatvori' (Close) button of the update window.
             kursor.close()
             
         except:
@@ -144,9 +147,9 @@ class Radnici:
             self.radnici_ucitavanje()
     
     def broj_po_godini_zaposljavanja(self):
-        """Broj trenutno zaposlenih po godini u kojoj su zaposleni."""
+        """Number of currently employed by year in which they were employed."""
         
-        # Potrebni podaci.
+        # Data needed
         zaposleni_df = self.radnici_df[self.radnici_df.zaposlen == True]
         
         datumi_zaposljavanja = zaposleni_df.datum_zaposljavanja.to_list()
@@ -162,7 +165,7 @@ class Radnici:
             br_zaposlenih = godine_zaposljavanja.count(god)
             lista_br_zaposlenih_po_godini.append(br_zaposlenih)
         
-        # Grafik.
+        # Chart
         plt.figure(figsize=(12, 8))
         
         plt.plot(
@@ -199,9 +202,9 @@ class Radnici:
         plt.show()
     
     def broj_zaposlenih_po_pozicijama(self):
-        """Stubični prikaz broja zaposlenih po pozicijama."""
+        """Bar chart of the number of employees by position."""
         
-        # Potrebni podaci.
+        # Data needed
         pozicije_u_firmi = set(self.radnici_df.pozicija.to_list())
         pozicije_sortirano = sorted(list(pozicije_u_firmi), reverse=True)
         
@@ -213,7 +216,7 @@ class Radnici:
             ].count()
             broj_zaposlenih_lista.append(br_po_jednoj_poziciji)
             
-        # Grafik.
+        # Chart
         plt.figure(figsize=(10, 8))
         
         plt.barh(pozicije_sortirano, broj_zaposlenih_lista, color="olivedrab")
@@ -241,9 +244,9 @@ class Radnici:
         plt.show()
     
     def broj_zaposlenih_po_radnim_mestima(self):
-        """Stubični prikaz broja zaposlenih po radnim mestima."""
+        """Bar chart of the number of employees by workplace."""
         
-        # Potrebni podaci.
+        # Data needed
         radna_mesta_nazivi = sorted(lokacije.lokacije_df.pun_naziv.to_list(),
                                     reverse=True)
         radna_mesta_sifre = []
@@ -260,7 +263,7 @@ class Radnici:
             ].count()
             broj_zaposlenih_lista.append(br_po_radnom_mestu)
         
-        # Grafik.
+        # Chart
         plt.figure(figsize=(12, 8))
 
         plt.barh(radna_mesta_nazivi, broj_zaposlenih_lista,
@@ -280,9 +283,9 @@ class Radnici:
         plt.show()
         
     def broj_zaposlenih_po_sektorima(self):
-        """Dijagram broja zaposlenih po sektorima."""
+        """Chart of the number of employees by sector."""
         
-        # Potrebni podaci.
+        # Data needed
         sektori_firme = set(pozicije.pozicije_df.sektor.to_list())
         sektori_sortirano = sorted(list(sektori_firme))
         
@@ -304,7 +307,7 @@ class Radnici:
             
             br_po_sektorima_lista.append(br_po_radnim_mestima)
         
-        # Grafik.
+        # Chart
         plt.figure(figsize=(8, 8))
         
         plt.pie(
@@ -325,10 +328,10 @@ class Radnici:
         plt.show()
         
     def odnos_zaposleni_bivsi(self):
-        """Dijagram odnosa trenutno zaposlenih i onih koji su ranije
-        radili u firmi."""
+        """Chart of the ration between current employees and those who 
+        previously worked in the company."""
         
-        # Potrebni podaci.
+        # Data needed
         status_zaposlenja = ["Trenutno zaposleni", "Ranije zaposleni"]
         
         br_trenutno_zaposlenih = self.radnici_df.zaposlen[
@@ -338,7 +341,7 @@ class Radnici:
         trenutno_ranije_zaposleni = [br_trenutno_zaposlenih,
                                      br_ranije_zaposlenih]
         
-        # Grafik.
+        # Chart
         plt.figure(figsize=(8, 8))
         
         plt.pie(
@@ -358,10 +361,10 @@ class Radnici:
         plt.show()
     
     def odnos_mobilni_fiksni(self):
-        """Odnos zaposlenih koji imaju mobilni telefon i onih koji koriste
-        fiksni telefon."""
+        """The ratio of employees who have a mobile phone to those who use 
+        a landline."""
         
-        # Potrebni podaci.
+        # Data needed
         zaposleni_df = self.radnici_df[self.radnici_df.zaposlen == True]
         telefoni_lista = zaposleni_df.telefon.to_list()
         
@@ -376,7 +379,7 @@ class Radnici:
         broj_mobilnih_i_fiksnih = [ukupno_mobilnih, ukupno_fiksnih]
         tel_status = ["Mobilni telefoni", "Fiksni telefoni"]
         
-        # Grafik.
+        # Chart
         plt.figure(figsize=(8, 8))
         
         plt.pie(
@@ -396,9 +399,9 @@ class Radnici:
         plt.show()
     
     def email_odnos(self):
-        """Odnos zaposlenih koji imaju email i onih koji ga nemaju."""
+        """Ratio of employees who have email to those who do not."""
         
-        # Potrebni podaci.
+        # Data needed
         zaposleni_df = self.radnici_df[self.radnici_df.zaposlen == True]
         
         bez_emaila = len(zaposleni_df.email[(zaposleni_df.email.isnull()) | (
@@ -407,7 +410,7 @@ class Radnici:
         broj_sa_i_bez_email = [sa_emailom, bez_emaila]
         email_status = ["Sa emailom", "Bez emaila"]
         
-        # Grafik.
+        # Chart
         plt.figure(figsize=(8, 8))
 
         plt.pie(
@@ -427,9 +430,9 @@ class Radnici:
         plt.show()
     
     def odnos_po_radnom_mestu(self):
-        """Odnos ranije i trenutno zaposlenih po radnom mestu."""
+        """The ratio of former and current employees by workplace."""
         
-        # Potrebni podaci.
+        # Data needed
         spisak_rm_sifri = set(self.radnici_df.lokacija.to_list())
         sifre_rm_sortirano = sorted(list(spisak_rm_sifri), reverse=True)
         
@@ -461,7 +464,7 @@ class Radnici:
             odnos = round(br_ranije_zaposlenih[i]/br_trenutno_zaposlenih[i], 3)
             odnosi_ranije_trenutno.append(odnos)
         
-        # Grafik.
+        # Chart
         plt.figure(figsize=(12, 8))
 
         plt.plot(
@@ -497,9 +500,9 @@ class Radnici:
         plt.show()
 
     def odnos_po_poziciji(self):
-        """Odnos ranije i trenutno zaposlenih po poziciji."""
+        """Ratio of former and current employees by position."""
     
-        # Potrebni podaci.
+        # Data needed
         spisak_pozicija = set(self.radnici_df.pozicija.to_list())
         pozicije_sortirano = sorted(list(spisak_pozicija), reverse=True)
 
@@ -525,7 +528,7 @@ class Radnici:
             odnos = round(br_ranije_zaposlenih[i]/br_trenutno_zaposlenih[i], 3)
             odnosi_ranije_trenutno.append(odnos)
 
-        # Grafik.
+        # Chart
         plt.figure(figsize=(12, 8))
 
         plt.plot(
@@ -562,7 +565,7 @@ class Radnici:
 
 
 class Pozicije:
-    """Manipulacija podacima iz tabele 'pozicije'."""
+    """Managing data from the 'pozicije' (positions) table."""
     
     def __init__(self):
         self.con = pg.connect(
@@ -575,16 +578,16 @@ class Pozicije:
         self.pozicije_df = None
     
     def pozicije_ucitavanje(self):
-        """Osvežavanje podataka tabele 'pozicije'."""
+        """Refreshing the 'pozicije' (positions) table data."""
         
         self.pozicije_df = pd.read_sql_query("SELECT * FROM pozicije",
                                                 self.con)
 
 
     def broj_pozicija_po_sektorima(self):
-        """Grafik broja radnih pozicija po svakom sektoru."""
+        """Chart of the number of job positions per each sector."""
         
-        # Potrebni podaci.
+        # Data needed
         sektori_firme = set(self.pozicije_df.sektor.to_list())
         sektori_sortirano = sorted(list(sektori_firme))
         
@@ -594,7 +597,7 @@ class Pozicije:
                 self.pozicije_df.sektor == sek].count()
             broj_pozicija_lista.append(br_jednog_sektora)
         
-        # Grafik.
+        # Chart
         plt.figure(figsize=(10, 7))
         
         plt.bar(sektori_sortirano, broj_pozicija_lista, color="orange")
@@ -624,7 +627,7 @@ class Pozicije:
 
 
 class Lokacije:
-    """Manipulacija podacima iz tabele 'lokacije'."""
+    """Managing data from the 'lokacije' (locations) table."""
     
     def __init__(self):
         self.con = pg.connect(
@@ -637,7 +640,7 @@ class Lokacije:
         self.lokacije_df = None
     
     def lokacije_ucitavanje(self):
-        """Osvežavanje podataka tabele 'lokacije'."""
+        """Refreshing the 'lokacije' (locations) table data."""
         
         self.lokacije_df = pd.read_sql_query("SELECT * FROM lokacije",
                                              self.con)
